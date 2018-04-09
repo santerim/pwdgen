@@ -15,8 +15,7 @@ public class Pwdgen {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        PasswordGenerator pg = new PasswordGenerator();
-        String pwd = pg.Generate(25);
+        final PasswordGenerator pg = new PasswordGenerator();
 //        System.out.println(pg.Generate(15));
 //        final JFrame frame = new JFrame();
 //        final JOptionPane pane = new JOptionPane();
@@ -36,7 +35,7 @@ public class Pwdgen {
 
         JFrame frame = new JFrame("pwdgen");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 500);
+        frame.setSize(500, 300);
         
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -68,7 +67,8 @@ public class Pwdgen {
 //        gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(genButton, gbc);
         
-        JLabel outputTextField = new JLabel(" ");
+        JLabel outputTextField = new JLabel(" ", SwingConstants.CENTER);
+
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
@@ -79,7 +79,23 @@ public class Pwdgen {
         
         genButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                outputTextField.setText(pwd);
+                String pwd = "";
+                try{
+                    int length = Integer.parseInt(inputTextField.getText());
+                    if(length > 0 && length < 51) {
+                        pwd = pg.Generate(length);
+                        outputTextField.setText(pwd);
+                    } else {
+                        outputTextField.setText("Too short or long");
+                    }
+                }
+                catch (NumberFormatException error) {
+                    outputTextField.setText("Number format error");
+                }
+                catch (NullPointerException error) {
+                    
+                }
+                
             }
         });
 
