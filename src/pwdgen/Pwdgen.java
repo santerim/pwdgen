@@ -38,42 +38,49 @@ public class Pwdgen {
         frame.setSize(500, 300);
         
         JPanel panel = new JPanel(new GridBagLayout());
+//        panel.setMinimumSize(new Dimension(400, 300));
         panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         frame.getContentPane().add(panel, BorderLayout.NORTH);
         GridBagConstraints gbc = new GridBagConstraints();
         
-        JLabel labelLengthInfo = new JLabel("Length of password (1-50 characters)");
+        JLabel labelLengthInfo = new JLabel("Length of password (8-50 characters)");
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipadx = 95;
+        gbc.insets = new Insets(0, 0, 20, 0);
+        gbc.weightx = 0.9;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.EAST;
         panel.add(labelLengthInfo, gbc);
         
         JTextField inputTextField = new JTextField(2);
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 0, 20, 0);
+        gbc.weightx = 0.1;
+        gbc.anchor = GridBagConstraints.WEST;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(inputTextField, gbc);
         
         JButton genButton = new JButton("Generate");
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
-//        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(0, 0, 15, 0);
         gbc.weightx = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
 //        gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(genButton, gbc);
         
         JLabel outputTextField = new JLabel(" ", SwingConstants.CENTER);
-
+//        outputTextField.setBounds(new Rectangle(0, 0, 500, 10));
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10, 0, 0, 0);
-        gbc.anchor = GridBagConstraints.PAGE_END;
+//        gbc.anchor = GridBagConstraints.PAGE_END;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(outputTextField, gbc);
         
@@ -82,11 +89,15 @@ public class Pwdgen {
                 String pwd = "";
                 try{
                     int length = Integer.parseInt(inputTextField.getText());
+                    if(length < 1) {
+                        outputTextField.setText("Fill in the desired password length");
+                    }
                     if(length > 0 && length < 51) {
                         pwd = pg.Generate(length);
+
                         outputTextField.setText(pwd);
                     } else {
-                        outputTextField.setText("Too short or long");
+                        outputTextField.setText("Password length too long");
                     }
                 }
                 catch (NumberFormatException error) {
