@@ -13,9 +13,6 @@ import javax.swing.*;
  */
 public class Pwdgen {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         final PasswordGenerator pg = new PasswordGenerator();
 
@@ -73,7 +70,7 @@ public class Pwdgen {
         genButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                String pwd = "";
+                String pwd;
                 try{
                     int length = Integer.parseInt(inputTextField.getText());
                     System.out.println(length);
@@ -99,6 +96,7 @@ public class Pwdgen {
             }
         });
 
+        // ActionListener for copy button
         copyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -112,10 +110,6 @@ public class Pwdgen {
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
-        
-        
-
-//        System.exit(0);
     }
 
 }
